@@ -1,10 +1,10 @@
 #Steven Pitts
 import Tkinter
 from Tkinter import *
-class SetupGUI:
+class ServerSetupGUI:
 	def __init__(self, master, infoDict):
 		self.master = master
-		master.title("Setup")
+		master.title("Server Setup")
 		
 		self.infoDict = infoDict
 		
@@ -15,18 +15,20 @@ class SetupGUI:
 		self.mainLabel = Label(master, text=labelText)
 		self.mainLabel.pack()
 		
-		self.inputDict = {"firstName":Entry(master),
-			"lastName":Entry(master)
-			}
-		self.labelTextDict = {"firstName":"Please enter your first name here",
-			"lastName":"Please enter your last name here"
-			}
-			
+		self.inputDict = {"ip":Entry(master),
+						"port":Entry(master)
+						}
+		self.labelTextDict = {"ip":"Please enter your ip here",
+							"port":"Please enter your port here"
+							}
+		
 		for key in self.inputDict:
 			Label(master,text=self.labelTextDict[key]).pack()
 			self.inputDict[key].pack()
+		
 		self.submitButton = Button(master,text="Submit",command=self.pressSubmit)
 		self.submitButton.pack()
+		
 		mainloop()
 		
 	def pressSubmit(self):
