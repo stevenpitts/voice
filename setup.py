@@ -1,10 +1,11 @@
 import sys
+from setupGUI import SetupGUI
 from setuptools import setup
 
 setup(
     name = "voice",        # what you want to call the archive/egg
     version = "0.1",
-    packages=["voice voiceServer"],    # top-level python modules you can import like
+    packages=["voice voiceServer makuUtil"],    # top-level python modules you can import like
                                 #   'import foo'
     dependency_links = [],      # custom links to a specific project
     install_requires=[],

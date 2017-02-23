@@ -2,7 +2,7 @@
 import Tkinter
 from Tkinter import *
 class SetupGUI:
-	def __init__(self, master, infoDict):
+	def __init__(self, master, infoDict, inputDict, labelTextDict):
 		self.master = master
 		master.title("Setup")
 		
@@ -14,14 +14,8 @@ class SetupGUI:
 		labelText = "Please fill out the information.\n\n"
 		self.mainLabel = Label(master, text=labelText)
 		self.mainLabel.pack()
-		
-		self.inputDict = {"firstName":Entry(master),
-			"lastName":Entry(master)
-			}
-		self.labelTextDict = {"firstName":"Please enter your first name here",
-			"lastName":"Please enter your last name here"
-			}
-			
+		self.inputDict = inputDict
+		self.labelTextDict = labelTextDict
 		for key in self.inputDict:
 			Label(master,text=self.labelTextDict[key]).pack()
 			self.inputDict[key].pack()
