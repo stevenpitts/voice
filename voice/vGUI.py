@@ -8,19 +8,19 @@ https://docs.python.org/2/library/tkinter.html
 """
 class VGUI:
 	def __init__(self, master):
+		print "1"
 		self.master = master
 		master.title("Intercom")
-		
+		print "2"
 		labelText = "The purpose of this is for recording messages to be sent to other computers on the network."
 		self.label = Label(master, text = labelText)
 		self.label.pack()
-		
 		self.record_button = Button(master, text="Record Message",command=self.recordPress)
 		#self.record_button["WasRecording"] = 0 This didn't work
 		self.record_button.pack()
-		
 		self.close_button = Button(master, text="Close Window",command=master.quit)
 		self.close_button.pack()
+		mainloop()
 	
 	def recordPress(self):
 		wasRecording = (self.record_button["text"] == "Stop Recording") #There must be a better way of doing this
