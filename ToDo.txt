@@ -1,0 +1,2 @@
+Make a gui
+For starters, have the program be a "push to record, then press button to send voice" thing
