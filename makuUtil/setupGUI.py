@@ -28,9 +28,12 @@ class SetupGUI:
 		mainloop()
 		
 	def pressSubmit(self):
-		#check that they've inputted stuff
 		for key in self.inputDict:
-			self.infoDict[key] = self.inputDict[key].get()
+			entryVal = self.inputDict[key].get()
+			if (entryVal == ""):
+				self.mainLabel["text"] = "One or more spaces are blank. Please fill out the form."
+				return
+			self.infoDict[key] = entryVal
 		self.master.destroy()
 	def populate(self):
 		for key in self.inputDict:
