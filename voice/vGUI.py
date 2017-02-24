@@ -1,6 +1,7 @@
 #Steven Pitts
 import Tkinter
 from Tkinter import *
+from sound.sound import Sound
 """
 Resources:
 http://python-textbok.readthedocs.io/en/1.0/Introduction_to_GUI_Programming.html'
@@ -39,7 +40,8 @@ class VGUI:
 			self.recDataEntry.delete(0,END)
 			self.record_button["text"] = "Stop Recording"
 	def sendData(self, data):
-		print "The user ",self.getName()," has send the data: ",data
+		newSound = Sound(data,self.getName())
+		print "The user ",newSound.user," has send the data: ",newSound.data
 		#This should actually send it in the future
 	def getName (self):
 		return self.infoDict["firstName"]+" "+self.infoDict["lastName"]

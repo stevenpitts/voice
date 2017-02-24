@@ -4,6 +4,7 @@ from vGUI import VGUI
 from userSetupGUI import UserSetupGUI
 import Tkinter
 from Tkinter import *
+from sound.sound import Sound
 
 def main(argv=None):
 	if argv is None: argv = sys.argv
