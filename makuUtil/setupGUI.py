@@ -21,6 +21,10 @@ class SetupGUI:
 			self.inputDict[key].pack()
 		self.submitButton = Button(master,text="Submit",command=self.pressSubmit)
 		self.submitButton.pack()
+		
+		self.populateButton = Button(master, text="Autopopulate (for debugging)",command=self.populate)
+		self.populateButton.pack()
+		
 		mainloop()
 		
 	def pressSubmit(self):
@@ -28,3 +32,6 @@ class SetupGUI:
 		for key in self.inputDict:
 			self.infoDict[key] = self.inputDict[key].get()
 		self.master.destroy()
+	def populate(self):
+		for key in self.inputDict:
+			self.inputDict[key].insert(0,key+"Default")
