@@ -1,3 +1,5 @@
+#Steven Pitts
+#PyAudio looks good for doing this stuff
 class AudioRecorder:
 	def __init__(self, gui):
 		self.vGUI = gui
