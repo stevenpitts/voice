@@ -41,7 +41,6 @@ class VGUI:
 			self.record_button["text"] = "Stop Recording"
 	def sendData(self, data):
 		newSound = Sound(data,self.getName())
-		print "The user ",newSound.user," has send the data: ",newSound.data
-		#This should actually send it in the future
+		newSound.sendData()
 	def getName (self):
 		return self.infoDict["firstName"]+" "+self.infoDict["lastName"]

@@ -1,9 +1,10 @@
 #Steven Pitts
 import sys
-#from vGUI import VGUI
+from sGUI import SGUI
 from serverSetupGUI import ServerSetupGUI
 import Tkinter
 from Tkinter import *
+from sound.sound import Sound
 
 def main(argv=None):
 	if argv is None: argv = sys.argv
@@ -11,4 +12,5 @@ def main(argv=None):
 	print "infoDict before: ",infoDict
 	server_setup_gui = ServerSetupGUI(Tk(),infoDict)
 	print "infoDict after: ",infoDict
+	my_gui = SGUI(Tk(),infoDict)
 	return 0
