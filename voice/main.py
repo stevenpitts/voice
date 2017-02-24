@@ -11,5 +11,5 @@ def main(argv=None):
 	print "infoDict before: ",infoDict
 	user_setup_gui = UserSetupGUI(Tk(),infoDict)
 	print "infoDictAfter: ",infoDict
-	my_gui = VGUI(Tk())
+	my_gui = VGUI(Tk(),infoDict)
 	return 0
