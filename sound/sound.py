@@ -3,5 +3,8 @@ class Sound:
 	def __init__(self,data,user):
 		self.data = data
 		self.user = user
+	def __str__(self):
+		return self.user+": \""+self.data+"\""
 	def sendData(self):
-		print "The user ",self.user," has send the data: ",self.data
+		print "Data has been sent:"
+		print " ",self

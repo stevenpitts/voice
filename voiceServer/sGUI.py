@@ -22,6 +22,8 @@ class SGUI:
 		self.label.pack()
 		demoSound = Sound("This is the demo data","Steven Demo")
 		self.receiveData(demoSound)
+		print demoSound
 		mainloop()
 	def receiveData(self, sound):
-		 print "Sound has been received. The user ",sound.user," has send the data: ",sound.data
+		print "Sound has been received:"
+		print " ",sound
