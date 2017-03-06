@@ -7,6 +7,5 @@ class Sound:
 	def __str__(self):
 		return self.user+": \""+self.data+"\""
 	def sendData(self,vGUI):
-		print "Data has been sent:"
-		print " ",self
+		print "Data has been sent: ",self
 		vGUI.sock.send(str(self))
