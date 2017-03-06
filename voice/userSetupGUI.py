@@ -7,10 +7,12 @@ class UserSetupGUI:
 		self.master = master
 		self.infoDict = infoDict
 		
-		self.inputDict = {"firstName":Entry(master),
+		self.inputDict = {"username": Entry(master),
+			"firstName":Entry(master),
 			"lastName":Entry(master)
 			}
-		self.labelTextDict = {"firstName":"Please enter your first name here",
+		self.labelTextDict = {"username":"Please enter your username here",
+			"firstName":"Please enter your first name here",
 			"lastName":"Please enter your last name here"
 			}
 		user_setup_gui = SetupGUI(self.master,self.infoDict,self.inputDict,self.labelTextDict)

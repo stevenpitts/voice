@@ -14,13 +14,13 @@ def main(argv=None):
 	vGUI = VGUI(Tk(),infoDict)
 	
 	sock = socket.socket()
-	host = socket.gethostname()
+	infoDict["host"] = socket.gethostname()
 	port = 12345 #should be same on server, I think
-	sock.connect((host,port))
+	sock.connect((infoDict["host"],port))
 	infoDictString=str(infoDict)
 	sock.send(infoDictString)
 	#print sock.recv(1024)
-	sock.close
+	#sock.close
 	
 	mainloop()
 	return 0
