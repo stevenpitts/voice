@@ -11,14 +11,17 @@ def main(argv=None):
 	if argv is None: argv = sys.argv
 	infoDict = dict()
 	user_setup_gui = UserSetupGUI(Tk(),infoDict)
-	vGUI = VGUI(Tk(),infoDict)
-	
+	#infoDict["socket"] = socket.socket()
 	sock = socket.socket()
+	#host = socket.gethostname()
 	infoDict["host"] = socket.gethostname()
-	port = 12345 #should be same on server, I think
-	sock.connect((infoDict["host"],port))
+	infoDict["port"] = 12345 #should be same on server, I think
+	sock.connect((infoDict["host"],infoDict["port"]))
 	infoDictString=str(infoDict)
 	sock.send(infoDictString)
+	
+	vGUI = VGUI(Tk(),infoDict,sock)
+	
 	#print sock.recv(1024)
 	#sock.close
 	

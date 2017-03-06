@@ -11,14 +11,15 @@ def main(argv=None):
 	if argv is None: argv = sys.argv
 	#infoDict = dict()
 	#server_setup_gui = ServerSetupGUI(Tk(),infoDict)
-	infoDict = {"port":12345,"socket":socket.socket(),"host":socket.gethostname(),"clients":{}}
-	
+	infoDict = {"port":12345,"socket":socket.socket(),"clients":{}}
+	infoDict["host"] = socket.gethostname()
 	#sock = socket.socket()
 	#host = socket.gethostname()
 	#port = int(infoDict["port"])
-	infoDict["socket"].bind((infoDict["host"],infoDict["port"]))
-	infoDict["socket"].listen(5)
+	sock = infoDict["socket"]
+	sock.bind((infoDict["host"],infoDict["port"]))
+	sock.listen(5)
 	#clients = {} #Keys should be usernames, values should be infodicts. Append clientSender and clientaddress to infodict.
-	sGUI = SGUI(Tk(),infoDict) #How am I going to run the main loop if this is here?
+	sGUI = SGUI(Tk(),infoDict,sock) #How am I going to run the main loop if this is here?
 	return 0
 	

@@ -4,13 +4,19 @@ from Tkinter import *
 from sound.sound import Sound
 from sound.audioRecorder import AudioRecorder
 class VGUI:
-	def __init__(self, master,infoDict):
+	def __init__(self, master,infoDict,sock):
 	
 		
 		
 		self.master = master
-		self.infoDict = infoDict
+		#self.infoDict = infoDict
+		self.sock = sock
 		self.audioRecorder = AudioRecorder(self)
+		#self.socket = infoDict["socket"]
+		self.host = infoDict["host"]
+		self.port = infoDict["port"]
+		self.firstName = infoDict["firstName"]
+		self.lastName = infoDict["lastName"]
 		
 		master.title("Intercom")
 		
@@ -29,6 +35,6 @@ class VGUI:
 			self.record_button["text"] = "Stop Recording"
 	def sendData(self, data):
 		newSound = Sound(data,self.getName())
-		newSound.sendData()
+		newSound.sendData(self)
 	def getName (self):
-		return self.infoDict["firstName"]+" "+self.infoDict["lastName"]
+		return self.firstName+" "+self.lastName
