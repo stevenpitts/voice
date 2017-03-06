@@ -17,7 +17,9 @@ def main(argv=None):
 	host = socket.gethostname()
 	port = 12345 #should be same on server, I think
 	sock.connect((host,port))
-	print sock.recv(1024)
+	infoDictString=str(infoDict)
+	sock.send(infoDictString)
+	#print sock.recv(1024)
 	sock.close
 	
 	mainloop()
