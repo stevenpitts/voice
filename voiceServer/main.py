@@ -20,6 +20,5 @@ def main(argv=None):
 	infoDict["socket"].listen(5)
 	#clients = {} #Keys should be usernames, values should be infodicts. Append clientSender and clientaddress to infodict.
 	sGUI = SGUI(Tk(),infoDict) #How am I going to run the main loop if this is here?
-	mainloop()
 	return 0
 	
