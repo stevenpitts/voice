@@ -18,7 +18,6 @@ class VGUI:
 		self.record_button = Button(master, text="Record Message",command=self.recordPress)
 		self.record_button.pack()
 		
-		mainloop()
 	
 	def recordPress(self):
 		wasRecording = (self.record_button["text"] == "Stop Recording") #There must be a better way of doing this

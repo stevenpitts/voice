@@ -18,7 +18,6 @@ class SGUI:
 		demoSound = Sound("This is the demo data","Steven Demo")
 		self.receiveData(demoSound)
 		print demoSound
-		mainloop()
 	def receiveData(self, sound):
 		print "Sound has been received:"
 		print " ",sound
