@@ -4,21 +4,31 @@ from Tkinter import *
 import socket
 from sound.sound import Sound
 import thread
+import sys
+
 class SGUI:
-	def __init__(self, master,infoDict,sock):
-		self.master = master
-		self.port = infoDict["port"]
-		self.sock =sock
-		self.host = infoDict["host"]
+	def __init__(self):
+		
+		
+	
+		
+		
+		self.master = Tk()
+		self.port = 12345
+		self.sock =socket.socket()
+		self.host = socket.gethostname()
+		self.sock.bind((self.host,self.port))
+		self.sock.listen(5)
 		self.clients = {}
-		master.title("Intercom Server")
+		self.master.title("Intercom Server")
 		labelText = "The purpose of this is to recieve and echo the messages it recieves.\n\n"
-		self.label = Label(master, text = labelText)
+		self.label = Label(self.master, text = labelText)
 		self.label.pack()
 		
 		thread.start_new_thread(self.checkForClients,())
 		thread.start_new_thread(self.checkForData,())
 		mainloop()
+		
 	def checkForClients(self):
 		while (True):
 			clientSender, clientAddress = self.sock.accept() #blocks other code
