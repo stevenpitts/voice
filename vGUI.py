@@ -1,16 +1,10 @@
 #Steven Pitts
 import Tkinter
 from Tkinter import *
-#import sound
-from sound import *
-#from sound.sound import Sound
-#from sound import AudioRecorder
-#from sound.audioRecorder import AudioRecorder
+from sound import Sound
 from audioRecorder import AudioRecorder
 import sys
 import socket
-#from userSetupGUI import UserSetupGUI
-import userSetupGUI
 from userSetupGUI import UserSetupGUI
 
 class VGUI:
@@ -32,28 +26,7 @@ class VGUI:
 		self.sock.send(infoDictString)
 		
 		self.master = Tk()
-		
-		"""#infoDict = dict()
-		#user_setup_gui = UserSetupGUI(Tk(),infoDict)
-		sock = socket.socket()
-		infoDict["host"] = socket.gethostname()
-		infoDict["port"] = 12345 #should be same on server, I think
-		sock.connect((infoDict["host"],infoDict["port"]))
-		infoDictString=str(infoDict)
-		sock.send(infoDictString)"""
-		
-		#vGUI = VGUI(Tk(),infoDict,self.sock)
-		
-		
-		
-		
-		#self.master = master
-		#self.sock = sock
 		self.audioRecorder = AudioRecorder(self)
-		#self.host = infoDict["host"]
-		#self.port = infoDict["port"]
-		#self.firstName = infoDict["firstName"]
-		#self.lastName = infoDict["lastName"]
 		
 		self.master.title("Intercom")
 		
