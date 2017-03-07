@@ -2,16 +2,14 @@
 import Tkinter
 from Tkinter import *
 import socket
-from sound.sound import Sound
+#import sound
+#import sound.sound
+#from sound.sound import Sound
 import thread
 import sys
 
 class SGUI:
 	def __init__(self):
-		
-		
-	
-		
 		
 		self.master = Tk()
 		self.port = 12345

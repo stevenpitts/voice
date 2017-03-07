@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 #This thing just goes to main.py in the voiceServer folder
 import sys
-import voiceServer.main
+from sGUI import SGUI
+#import voiceServer.main
 if __name__ == '__main__':
-    sys.exit(voiceServer.main.main())
+	sGUI = SGUI()
+	#return 0
+	
+    #sys.exit(voiceServer.main.main())

@@ -1,7 +1,9 @@
 #Steven Pitts
 import Tkinter
 from Tkinter import *
-from makuUtil.setupGUI import SetupGUI
+#from makuUtil.setupGUI import SetupGUI
+import setupGUI
+from setupGUI import SetupGUI
 class UserSetupGUI:
 	def __init__(self, master, infoDict):
 		self.master = master

@@ -1,10 +1,16 @@
 #Steven Pitts
 import Tkinter
 from Tkinter import *
-from sound.sound import Sound
-from sound.audioRecorder import AudioRecorder
+#import sound
+from sound import *
+#from sound.sound import Sound
+#from sound import AudioRecorder
+#from sound.audioRecorder import AudioRecorder
+from audioRecorder import AudioRecorder
 import sys
 import socket
+#from userSetupGUI import UserSetupGUI
+import userSetupGUI
 from userSetupGUI import UserSetupGUI
 
 class VGUI:
