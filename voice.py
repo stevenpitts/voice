@@ -1,8 +1,8 @@
 import sys
 import Tkinter
 from Tkinter import *
-from sound import Sound
-from audioRecorder import AudioRecorder
+from makuUtil import Sound
+from makuUtil import AudioRecorder
 import sys
 import socket
 from setupGUI import UserSetupGUI

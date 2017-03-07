@@ -9,3 +9,11 @@ class Sound:
 	def sendData(self,vGUI):
 		print "Data has been sent: ",self
 		vGUI.sock.send(str(self))
+#PyAudio looks good for doing this stuff
+class AudioRecorder:
+	def __init__(self, gui):
+		self.vGUI = gui
+	def recordAudio(self):
+		#somehow record audio here
+		data = "This is what was recorded"
+		return data
