@@ -88,7 +88,7 @@ class VGUI:
 	def recordPress(self):
 		wasRecording = (self.record_button["text"] == "Stop Recording") #There must be a better way of doing this
 		if wasRecording:
-			data = self.audioRecorder.recordAudio()
+			data = self.audioRecorder.recordAudio() #This gets the file
 			self.sock.sendall(data.read())
 			self.sendData(data)
 			self.record_button["text"] = "Record Message"

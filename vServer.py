@@ -49,8 +49,9 @@ class SGUI:
 					chunks.append(chunk)
 				if chunks:
 					print "chunks: ",chunks
-					recFile = open('rec.wav','rb')
+					recFile = wave.open('rec.wav','rb')
 					recFile.write(b''.join(chunks))
+					recFile.close()
 					self.receiveData(chunks)
 	def receiveData(self, sound):
 		print "Sound has been received: ",sound
