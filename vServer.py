@@ -27,7 +27,9 @@ class SGUI:
 		
 	def checkForClients(self):
 		while (True):
+			print "1"
 			clientSender, clientAddress = self.sock.accept() #blocks other code
+			print "2"
 			clientInfoString = clientSender.recv(1024)
 			clientInfo = eval(clientInfoString)
 			clientInfo["socket"]=clientSender
@@ -39,9 +41,17 @@ class SGUI:
 		while (True):
 			for client in self.clients.values():
 				sock = client["socket"]
-				data = sock.recv(1024)
-				if data:
-					self.receiveData(data)
+				chunks = []
+				while True:
+					chunk = sock.recv(4096)
+					if not chunk: break
+					print "323322"
+					chunks.append(chunk)
+				if chunks:
+					print "chunks: ",chunks
+					recFile = open('rec.wav','rb')
+					recFile.write(b''.join(chunks))
+					self.receiveData(chunks)
 	def receiveData(self, sound):
 		print "Sound has been received: ",sound
 if __name__ == '__main__':
