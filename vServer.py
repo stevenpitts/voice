@@ -3,6 +3,8 @@ import Tkinter
 from Tkinter import *
 import socket
 import thread
+import config
+from config import *
 
 #from voiceServer import SGUI
 
@@ -10,11 +12,11 @@ class SGUI:
 	def __init__(self):
 		
 		self.master = Tk()
-		self.port = 12345
+		self.port = makuPort
 		self.sock =socket.socket()
 		self.host = socket.gethostname()
 		self.sock.bind((self.host,self.port))
-		self.sock.listen(5)
+		self.sock.listen(makuMaxClients)
 		self.clients = {}
 		self.master.title("Intercom Server")
 		labelText = "The purpose of this is to recieve and echo the messages it recieves.\n\n"
@@ -30,7 +32,7 @@ class SGUI:
 			print "1"
 			clientSender, clientAddress = self.sock.accept() #blocks other code
 			print "2"
-			clientInfoString = clientSender.recv(1024)
+			clientInfoString = clientSender.recv(makuRecVal)
 			clientInfo = eval(clientInfoString)
 			clientInfo["socket"]=clientSender
 			clientInfo["address"]=clientAddress
@@ -43,7 +45,7 @@ class SGUI:
 				sock = client["socket"]
 				chunks = []
 				while True:
-					chunk = sock.recv(4096)
+					chunk = sock.recv(makuRecVal)
 					if not chunk: break
 					print "323322"
 					chunks.append(chunk)

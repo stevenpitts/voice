@@ -1,10 +1,15 @@
 import sys
 import Tkinter
 from Tkinter import *
-from makuUtil import Sound
-from makuUtil import AudioRecorder
+#from makuUtil import Sound
+#from makuUtil import AudioRecorder
 import sys
 import socket
+from config import *
+import pyaudio
+import wave
+import config
+from config import *
 
 class SetupGUI:
 	def __init__(self, master, infoDict, inputDict, labelTextDict):
@@ -66,9 +71,9 @@ class VGUI:
 		infoDict = {}
 		user_setup_gui = UserSetupGUI(Tk(),infoDict)
 		self.sock = socket.socket()
-		hostname,aliaslist,ipaddress = socket.gethostbyaddr('10.200.23.5') #Should be host IP
+		hostname,aliaslist,ipaddress = socket.gethostbyaddr(makuServerIP) #Should be host IP
 		self.host = hostname
-		self.port = 12345
+		self.port = makuPort
 		self.firstName = infoDict["firstName"]
 		self.lastName = infoDict["lastName"]
 		self.sock.connect((self.host,self.port))
@@ -77,7 +82,10 @@ class VGUI:
 		infoDictString = str(infoDict)
 		self.sock.send(infoDictString)
 		self.master = Tk()
-		self.audioRecorder = AudioRecorder(self)
+		#self.audioRecorder = AudioRecorder(self)
+		
+		self.p = pyaudio.PyAudio()
+		
 		self.master.title("Intercom")
 		Label(self.master, text = "Send your message to others on the network!\n\n").pack()
 		self.record_button = Button(self.master, text="Record Message",command=self.recordPress)
@@ -88,7 +96,8 @@ class VGUI:
 	def recordPress(self):
 		wasRecording = (self.record_button["text"] == "Stop Recording") #There must be a better way of doing this
 		if wasRecording:
-			data = self.audioRecorder.recordAudio() #This gets the file
+			#data = self.audioRecorder.recordAudio() #This gets the file
+			data = self.recordAudio()
 			self.sock.sendall(data.read())
 			self.sendData(data)
 			self.record_button["text"] = "Record Message"
@@ -102,6 +111,28 @@ class VGUI:
 		#newSound.sendData(self)
 	def getName (self):
 		return self.firstName+" "+self.lastName
+	def recordAudio(self):
+		#somehow record audio here
+		stream = self.p.open(format=makuFormat,channels=makuChannels,rate=makuRate,input=True,frames_per_buffer=makuChunk)
+		print "recording"
+		frames = []
+		for i in range(0,int((makuRate/makuChunk)*makuRecordSeconds)):
+			soundData = stream.read(makuChunk)
+			frames.append(soundData)
+		print "done recording"
+		stream.stop_stream()
+		stream.close()
+		#p.terminate()
+		wf=wave.open(makuOutputFilename,'wb')
+		wf.setnchannels(makuChannels)
+		wf.setsampwidth(self.p.get_sample_size(makuFormat))
+		wf.setframerate(makuRate)
+		wf.writeframes(b''.join(frames))
+		#print "thing: ",wf
+		wf.close()
+		openFile = open(makuOutputFilename,'rb')
+		return openFile
+		
 if __name__ == '__main__':
 	vGUI = VGUI()
 	mainloop()
