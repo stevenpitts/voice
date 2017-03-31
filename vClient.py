@@ -9,7 +9,9 @@ from config import *
 import pyaudio
 import wave
 import config
+import time
 from config import *
+from shutil import copyfile
 
 class SetupGUI:
 	def __init__(self, master, infoDict, inputDict, labelTextDict):
@@ -122,15 +124,15 @@ class VGUI:
 		print "done recording"
 		stream.stop_stream()
 		stream.close()
-		#p.terminate()
 		wf=wave.open(makuOutputFilename,'wb')
 		wf.setnchannels(makuChannels)
 		wf.setsampwidth(self.p.get_sample_size(makuFormat))
 		wf.setframerate(makuRate)
 		wf.writeframes(b''.join(frames))
-		#print "thing: ",wf
 		wf.close()
+		#time.sleep(2)
 		openFile = open(makuOutputFilename,'rb')
+		#time.sleep(2)
 		return openFile
 		
 if __name__ == '__main__':

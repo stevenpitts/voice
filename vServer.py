@@ -29,9 +29,9 @@ class SGUI:
 		
 	def checkForClients(self):
 		while (True):
-			print "1"
+			#print "1"
 			clientSender, clientAddress = self.sock.accept() #blocks other code
-			print "2"
+			#print "2"
 			clientInfoString = clientSender.recv(makuRecVal)
 			clientInfo = eval(clientInfoString)
 			clientInfo["socket"]=clientSender
@@ -42,19 +42,21 @@ class SGUI:
 	def checkForData(self):
 		while (True):
 			for client in self.clients.values():
+				#print "1"
 				sock = client["socket"]
 				chunks = []
+				counter = 0
+				#print "2"
 				while True:
+					#print "3"
 					chunk = sock.recv(makuRecVal)
-					if not chunk: break
-					print "323322"
-					chunks.append(chunk)
-				if chunks:
-					print "chunks: ",chunks
-					recFile = wave.open('rec.wav','rb')
-					recFile.write(b''.join(chunks))
-					recFile.close()
-					self.receiveData(chunks)
+					if chunk:
+						file = open('fisja.wav','wb')
+						print "IT GOT SOMETHING"
+						while chunk:
+							file.write(chunk)
+							chunk = sock.recv(makuRecVal)
+						file.close()
 	def receiveData(self, sound):
 		print "Sound has been received: ",sound
 if __name__ == '__main__':
