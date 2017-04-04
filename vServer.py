@@ -5,6 +5,7 @@ import socket
 import thread
 import config
 from config import *
+import time
 
 #from voiceServer import SGUI
 
@@ -29,9 +30,7 @@ class SGUI:
 		
 	def checkForClients(self):
 		while (True):
-			#print "1"
 			clientSender, clientAddress = self.sock.accept() #blocks other code
-			#print "2"
 			clientInfoString = clientSender.recv(makuRecVal)
 			clientInfo = eval(clientInfoString)
 			clientInfo["socket"]=clientSender
@@ -42,21 +41,30 @@ class SGUI:
 	def checkForData(self):
 		while (True):
 			for client in self.clients.values():
-				#print "1"
 				sock = client["socket"]
+				sock.setblocking(0)
 				chunks = []
 				counter = 0
-				#print "2"
 				while True:
-					#print "3"
-					chunk = sock.recv(makuRecVal)
+					chunk = 0
+					#GOTTA DO NON-BLOCKING STUFF HERE
+					try:
+						chunk = sock.recv(makuRecVal)
+					except socket.error, (value,message):
+						chunk = 0
 					if chunk:
-						file = open('fisja.wav','wb')
-						print "IT GOT SOMETHING"
+						file = open('receivedFile.wav','wb')
 						while chunk:
 							file.write(chunk)
-							chunk = sock.recv(makuRecVal)
+							try:
+								chunk = sock.recv(makuRecVal)
+							except socket.error, (value,message):
+								chunk = 0
 						file.close()
+						file2 = open('receivedFile.wav','rb')
+						for client2 in self.clients.values():
+							client2["socket"].sendall(file2.read())
+						
 	def receiveData(self, sound):
 		print "Sound has been received: ",sound
 if __name__ == '__main__':

@@ -1,8 +1,6 @@
 import sys
 import Tkinter
 from Tkinter import *
-#from makuUtil import Sound
-#from makuUtil import AudioRecorder
 import sys
 import socket
 from config import *
@@ -12,11 +10,14 @@ import config
 import time
 from config import *
 from shutil import copyfile
+import thread
 
 class SetupGUI:
 	def __init__(self, master, infoDict, inputDict, labelTextDict):
 		self.master = master
 		master.title("Setup")
+		
+		self.shouldStopRecording = False
 		
 		self.infoDict = infoDict
 		
@@ -92,29 +93,28 @@ class VGUI:
 		Label(self.master, text = "Send your message to others on the network!\n\n").pack()
 		self.record_button = Button(self.master, text="Record Message",command=self.recordPress)
 		self.record_button.pack()
+		print "b4thread"
+		thread.start_new_thread(self.contCheckForAudio,())
+		print "aftrthrea"
 		mainloop()
 		
 	
 	def recordPress(self):
-		wasRecording = (self.record_button["text"] == "Stop Recording") #There must be a better way of doing this
+		#wasRecording = (self.record_button["text"] == "Stop Recording") #There must be a better way of doing this
 		if wasRecording:
-			#data = self.audioRecorder.recordAudio() #This gets the file
+			print "was"
+			#data = self.recordAudio()
+			#self.shouldStopRecording = True
+			#self.record_button["text"] = "Record Message"
+		else:
 			data = self.recordAudio()
 			self.sock.sendall(data.read())
-			self.sendData(data)
-			self.record_button["text"] = "Record Message"
-		else:
-			self.record_button["text"] = "Stop Recording"
+			#self.record_button["text"] = "Stop Recording"
 	def sendData(self, data):
-		print "1"
 		self.sock.send(data.read())
-		print "2"
-		#newSound = Sound(data,self.getName())
-		#newSound.sendData(self)
 	def getName (self):
 		return self.firstName+" "+self.lastName
 	def recordAudio(self):
-		#somehow record audio here
 		stream = self.p.open(format=makuFormat,channels=makuChannels,rate=makuRate,input=True,frames_per_buffer=makuChunk)
 		print "recording"
 		frames = []
@@ -130,10 +130,39 @@ class VGUI:
 		wf.setframerate(makuRate)
 		wf.writeframes(b''.join(frames))
 		wf.close()
-		#time.sleep(2)
 		openFile = open(makuOutputFilename,'rb')
-		#time.sleep(2)
 		return openFile
+	def contCheckForAudio(self):
+		print "einseofns"
+		self.sock.setblocking(0)
+		while (True):
+			chunk = 0
+			try:
+				chunk = self.sock.recv(makuRecVal)
+			except socket.error, (value,message):
+				chunk = 0
+			if chunk:
+				file = open(makuClientInputFilename,"wb")
+				while chunk:
+					file.write(chunk)
+					try:
+						chunk = self.sock.recv(makuRecVal)
+					except socket.error, (value,message):
+						chunk = 0
+				file.close()
+				self.playAudio()
+	def playAudio(self):
+		chunk = makuChunk
+		file = wave.open(makuClientInputFilename,"rb")
+		p = pyaudio.PyAudio()
+		stream = p.open(format=p.get_format_from_width(file.getsampwidth()),channels=file.getnchannels(),rate=file.getframerate(),output=True)
+		data = file.readframes(chunk)
+		while data:
+			stream.write(data)
+			data = file.readframes(chunk)
+		stream.stop_stream()
+		stream.close()
+		p.terminate
 		
 if __name__ == '__main__':
 	vGUI = VGUI()
