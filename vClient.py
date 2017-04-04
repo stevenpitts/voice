@@ -17,8 +17,6 @@ class SetupGUI:
 		self.master = master
 		master.title("Setup")
 		
-		self.shouldStopRecording = False
-		
 		self.infoDict = infoDict
 		
 		defaultScreenSize = "500x500"
@@ -100,16 +98,8 @@ class VGUI:
 		
 	
 	def recordPress(self):
-		#wasRecording = (self.record_button["text"] == "Stop Recording") #There must be a better way of doing this
-		if wasRecording:
-			print "was"
-			#data = self.recordAudio()
-			#self.shouldStopRecording = True
-			#self.record_button["text"] = "Record Message"
-		else:
-			data = self.recordAudio()
-			self.sock.sendall(data.read())
-			#self.record_button["text"] = "Stop Recording"
+		data = self.recordAudio()
+		self.sock.sendall(data.read())
 	def sendData(self, data):
 		self.sock.send(data.read())
 	def getName (self):
@@ -133,7 +123,6 @@ class VGUI:
 		openFile = open(makuOutputFilename,'rb')
 		return openFile
 	def contCheckForAudio(self):
-		print "einseofns"
 		self.sock.setblocking(0)
 		while (True):
 			chunk = 0
