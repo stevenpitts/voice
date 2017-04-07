@@ -91,9 +91,9 @@ class VGUI:
 		Label(self.master, text = "Send your message to others on the network!\n\n").pack()
 		self.record_button = Button(self.master, text="Record Message",command=self.recordPress)
 		self.record_button.pack()
-		print "b4thread"
+		#print "b4thread"
 		thread.start_new_thread(self.contCheckForAudio,())
-		print "aftrthrea"
+		#print "aftrthrea"
 		mainloop()
 		
 	

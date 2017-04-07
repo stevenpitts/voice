@@ -1,10 +1,10 @@
 import pyaudio
-makuServerIP = '10.200.41.37'
+makuServerIP = '192.168.20.10'
 makuChunk = 1024
 makuFormat = pyaudio.paInt16
 makuChannels = 2
 makuRate = 44100
-makuRecordSeconds = 3
+makuRecordSeconds = 6
 makuOutputFilename = "sentVoice.wav"
 makuInputFilename = "receivedVoice.wav"
 makuClientInputFilename = "clientSecondFile.wav"

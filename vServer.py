@@ -63,9 +63,7 @@ class SGUI:
 						file.close()
 						file2 = open('receivedFile.wav','rb')
 						for client2 in self.clients.values():
-							#time.sleep(5)
 							client2["socket"].sendall(file2.read())
-							#time.sleep(5)
 						
 	def receiveData(self, sound):
 		print "Sound has been received: ",sound
